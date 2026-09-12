@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   TrendingUp,
   Filter,
@@ -11,23 +12,29 @@ import {
   Users,
   Cpu
 } from 'lucide-react';
-import { i18n } from '../i18n';
 
-export default function Header({ activeTab, setActiveTab, lang, setLang, wsStatus }) {
-  const t = i18n[lang] || i18n.en;
+export default function Header({ activeTab, setActiveTab }) {
+  const { t, i18n } = useTranslation();
+
+  const currentLang = i18n.language || 'en';
+
+  const toggleLanguage = () => {
+    const nextLang = currentLang.startsWith('hi') ? 'en' : 'hi';
+    i18n.changeLanguage(nextLang);
+  };
 
   const tabs = [
-    { id: 'telemetry', label: t.tabTelemetry, icon: <TrendingUp size={16} /> },
-    { id: 'schematic', label: t.tabSchematic, icon: <Filter size={16} /> },
-    { id: 'gis', label: t.tabGisMap, icon: <MapPin size={16} /> },
-    { id: 'health', label: t.tabHealth, icon: <Wrench size={16} /> },
-    { id: 'reports', label: t.tabReports, icon: <FileText size={16} /> }
+    { id: 'telemetry', label: t('tabTelemetry'), icon: <TrendingUp size={16} /> },
+    { id: 'schematic', label: t('tabSchematic'), icon: <Filter size={16} /> },
+    { id: 'gis', label: t('tabGisMap'), icon: <MapPin size={16} /> },
+    { id: 'health', label: t('tabHealth'), icon: <Wrench size={16} /> },
+    { id: 'reports', label: t('tabReports'), icon: <FileText size={16} /> }
   ];
 
   return (
     <header style={{ marginBottom: '24px' }}>
       
-      {/* 1. Main Header Navigation Bar matching screenshot */}
+      {/* 1. Main Header Navigation Bar */}
       <div className="glass-panel" style={{
         padding: '12px 24px',
         display: 'flex',
@@ -56,14 +63,14 @@ export default function Header({ activeTab, setActiveTab, lang, setLang, wsStatu
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
               <h1 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.3px' }}>
-                {t.appTitle}
+                {t('appTitle')}
               </h1>
               <span style={{ fontSize: '0.9rem', color: '#94A3B8', fontWeight: 500 }}>
-                {t.appTitleRegional}
+                {t('appTitleRegional')}
               </span>
             </div>
             <p style={{ fontSize: '0.74rem', color: '#64748B', fontWeight: 500 }}>
-              {t.appSubtitle}
+              {t('appSubtitle')}
             </p>
           </div>
         </div>
@@ -128,12 +135,12 @@ export default function Header({ activeTab, setActiveTab, lang, setLang, wsStatu
             letterSpacing: '0.5px'
           }}>
             <span className="pulse-dot" style={{ background: '#10B981' }}></span>
-            <span>{t.iotOnline}</span>
+            <span>{t('iotOnline')}</span>
           </div>
 
-          {/* Language Switcher */}
+          {/* Language Switcher using react-i18next */}
           <button
-            onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
+            onClick={toggleLanguage}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -150,14 +157,14 @@ export default function Header({ activeTab, setActiveTab, lang, setLang, wsStatu
             }}
           >
             <Globe size={15} color="#00D2FF" />
-            <span>{lang === 'en' ? 'हिन्दी' : 'English'}</span>
+            <span>{currentLang.startsWith('hi') ? 'English' : 'हिन्दी'}</span>
           </button>
 
         </div>
 
       </div>
 
-      {/* 2. Sub-Header Metadata Ticker Bar matching screenshot */}
+      {/* 2. Sub-Header Metadata Ticker Bar */}
       <div style={{
         background: 'rgba(5, 12, 24, 0.95)',
         border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -178,33 +185,33 @@ export default function Header({ activeTab, setActiveTab, lang, setLang, wsStatu
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Cpu size={14} color="#00D2FF" />
-            <span>{t.activeUnitLabel}</span>
-            <strong style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>{t.activeUnitVal}</strong>
+            <span>{t('activeUnitLabel')}</span>
+            <strong style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>{t('activeUnitVal')}</strong>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Droplet size={14} color="#34D399" />
-            <span>{t.purifiedLabel}</span>
-            <strong style={{ color: '#34D399' }}>{t.purifiedVal}</strong>
+            <span>{t('purifiedLabel')}</span>
+            <strong style={{ color: '#34D399' }}>{t('purifiedVal')}</strong>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Users size={14} color="#C084FC" />
-            <span>{t.beneficiariesLabel}</span>
-            <strong style={{ color: '#C084FC' }}>{t.beneficiariesVal}</strong>
+            <span>{t('beneficiariesLabel')}</span>
+            <strong style={{ color: '#C084FC' }}>{t('beneficiariesVal')}</strong>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Sun size={14} color="#FBBF24" />
-            <span>{t.solarInputLabel}</span>
-            <strong style={{ color: '#FBBF24' }}>{t.solarInputVal}</strong>
+            <span>{t('solarInputLabel')}</span>
+            <strong style={{ color: '#FBBF24' }}>{t('solarInputVal')}</strong>
           </div>
 
         </div>
 
         {/* Right Dept Credit */}
         <div style={{ fontSize: '0.74rem', color: '#64748B', fontFamily: 'monospace' }}>
-          {t.govBrand}
+          {t('govBrand')}
         </div>
 
       </div>

@@ -1,11 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import HistoryTable from '../components/HistoryTable';
-import { FileText, ShieldCheck, Download, CheckCircle2, Award } from 'lucide-react';
+import { Download, Award } from 'lucide-react';
 import { getExportCsvUrl } from '../api/client';
-import { i18n } from '../i18n';
 
-export default function ComplianceReportsPage({ history, deviceId, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function ComplianceReportsPage({ history, deviceId }) {
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -103,7 +103,6 @@ export default function ComplianceReportsPage({ history, deviceId, lang }) {
       <HistoryTable
         history={history}
         deviceId={deviceId}
-        lang={lang}
       />
 
     </div>

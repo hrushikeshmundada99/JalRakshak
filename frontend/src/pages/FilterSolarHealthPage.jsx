@@ -1,9 +1,9 @@
 import React from 'react';
-import { Sun, Wrench, Battery, Cpu, Activity, ShieldCheck, Zap } from 'lucide-react';
-import { i18n } from '../i18n';
+import { useTranslation } from 'react-i18next';
+import { Sun, Wrench, Activity, Zap } from 'lucide-react';
 
-export default function FilterSolarHealthPage({ lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function FilterSolarHealthPage() {
+  const { t } = useTranslation();
 
   return (
     <div>

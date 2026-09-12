@@ -1,9 +1,10 @@
 import React from 'react';
-import { Bell, MessageSquare, ShieldAlert, PhoneCall } from 'lucide-react';
-import { i18n } from '../i18n';
+import { useTranslation } from 'react-i18next';
+import { Bell, ShieldAlert, PhoneCall } from 'lucide-react';
 
-export default function AlertLog({ alerts, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function AlertLog({ alerts }) {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'en';
 
   return (
     <div className="glass-panel" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -25,10 +26,10 @@ export default function AlertLog({ alerts, lang }) {
           </div>
           <div>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#FFFFFF' }}>
-              {t.alertsTitle}
+              {t('alertsTitle')}
             </h3>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              {t.alertsSub}
+              {t('alertsSub')}
             </p>
           </div>
         </div>
@@ -63,7 +64,7 @@ export default function AlertLog({ alerts, lang }) {
             color: 'var(--text-dim)',
             fontSize: '0.88rem'
           }}>
-            {t.noAlerts}
+            {t('noAlerts')}
           </div>
         ) : (
           alerts.map((alert) => {
@@ -107,7 +108,7 @@ export default function AlertLog({ alerts, lang }) {
                     <PhoneCall size={12} />
                     <span>Jal Sahiya SMS Gateway (Simulated Dispatch):</span>
                   </div>
-                  <div>{lang === 'hi' ? alert.sms_hindi : alert.sms_english}</div>
+                  <div>{currentLang.startsWith('hi') ? alert.sms_hindi : alert.sms_english}</div>
                 </div>
 
               </div>

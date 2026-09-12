@@ -1,10 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ResponsiveContainer, AreaChart, Area, YAxis } from 'recharts';
 import { Activity, Droplet, TestTube, Thermometer, ShieldAlert, CheckCircle2, AlertTriangle } from 'lucide-react';
-import { i18n } from '../i18n';
 
-export default function LiveStatusHero({ reading, history, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function LiveStatusHero({ reading, history }) {
+  const { t } = useTranslation();
   const status = reading?.status || 'SAFE';
 
   const statusConfig = {
@@ -12,7 +12,7 @@ export default function LiveStatusHero({ reading, history, lang }) {
       bgClass: 'glow-safe',
       badgeClass: 'badge-safe',
       icon: <CheckCircle2 size={24} color="#10B981" />,
-      title: t.statusSafe,
+      title: t('statusSafe'),
       color: '#10B981',
       desc: "All physical & chemical parameters comply strictly with BIS 10500:2012 acceptable drinking standards."
     },
@@ -20,7 +20,7 @@ export default function LiveStatusHero({ reading, history, lang }) {
       bgClass: 'glow-watch',
       badgeClass: 'badge-watch',
       icon: <AlertTriangle size={24} color="#F59E0B" />,
-      title: t.statusWatch,
+      title: t('statusWatch'),
       color: '#F59E0B',
       desc: "Moderate turbidity or elevated mineral TDS detected. Standard filtration active."
     },
@@ -28,7 +28,7 @@ export default function LiveStatusHero({ reading, history, lang }) {
       bgClass: 'glow-unsafe',
       badgeClass: 'badge-unsafe',
       icon: <ShieldAlert size={24} color="#EF4444" />,
-      title: t.statusUnsafe,
+      title: t('statusUnsafe'),
       color: '#EF4444',
       desc: "Contamination hazard detected! UV-C disinfection engaged & Jal Sahiya notification dispatched."
     }
@@ -36,7 +36,6 @@ export default function LiveStatusHero({ reading, history, lang }) {
 
   const currentStatus = statusConfig[status] || statusConfig.SAFE;
 
-  // Prepare chart sparkline data from history
   const sparkData = (history || []).slice(0, 25).reverse().map((item, idx) => ({
     index: idx,
     ph: item.ph,
@@ -91,7 +90,7 @@ export default function LiveStatusHero({ reading, history, lang }) {
         </div>
       </div>
 
-      {/* 4 Sensor Parameter Hero Cards Grid */}
+      {/* 4 Sensor Parameter Cards Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
@@ -100,11 +99,11 @@ export default function LiveStatusHero({ reading, history, lang }) {
         
         {/* 1. pH Card */}
         <ParameterCard
-          title={t.phLabel}
+          title={t('phLabel')}
           value={reading?.ph ? reading.ph.toFixed(2) : '--'}
-          unit={t.phUnit}
+          unit={t('phUnit')}
           status={reading?.ph_status || 'SAFE'}
-          limit={t.phLimit}
+          limit={t('phLimit')}
           icon={<TestTube size={20} color="#00D2FF" />}
           sparkKey="ph"
           data={sparkData}
@@ -115,11 +114,11 @@ export default function LiveStatusHero({ reading, history, lang }) {
 
         {/* 2. Turbidity Card */}
         <ParameterCard
-          title={t.turbidityLabel}
+          title={t('turbidityLabel')}
           value={reading?.turbidity_ntu ? reading.turbidity_ntu.toFixed(2) : '--'}
-          unit={t.turbidityUnit}
+          unit={t('turbidityUnit')}
           status={reading?.turbidity_status || 'SAFE'}
-          limit={t.turbidityLimit}
+          limit={t('turbidityLimit')}
           icon={<Droplet size={20} color="#34D399" />}
           sparkKey="turbidity"
           data={sparkData}
@@ -130,11 +129,11 @@ export default function LiveStatusHero({ reading, history, lang }) {
 
         {/* 3. TDS Card */}
         <ParameterCard
-          title={t.tdsLabel}
+          title={t('tdsLabel')}
           value={reading?.tds_ppm ? Math.round(reading.tds_ppm) : '--'}
-          unit={t.tdsUnit}
+          unit={t('tdsUnit')}
           status={reading?.tds_status || 'SAFE'}
-          limit={t.tdsLimit}
+          limit={t('tdsLimit')}
           icon={<Activity size={20} color="#FBBF24" />}
           sparkKey="tds"
           data={sparkData}
@@ -145,11 +144,11 @@ export default function LiveStatusHero({ reading, history, lang }) {
 
         {/* 4. Temperature Card */}
         <ParameterCard
-          title={t.tempLabel}
+          title={t('tempLabel')}
           value={reading?.temperature_c ? reading.temperature_c.toFixed(1) : '--'}
-          unit={t.tempUnit}
+          unit={t('tempUnit')}
           status={reading?.temp_status || 'SAFE'}
-          limit={t.tempLimit}
+          limit={t('tempLimit')}
           icon={<Thermometer size={20} color="#F472B6" />}
           sparkKey="temp"
           data={sparkData}

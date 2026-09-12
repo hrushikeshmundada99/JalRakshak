@@ -1,17 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PurificationPipeline from '../components/PurificationPipeline';
-import { Zap, Gauge, Sliders, ShieldCheck, Activity, Cpu } from 'lucide-react';
-import { i18n } from '../i18n';
+import { Zap, Gauge, Sliders } from 'lucide-react';
 
-export default function PurificationSchematicPage({ reading, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function PurificationSchematicPage({ reading }) {
+  const { t } = useTranslation();
   const status = reading?.status || 'SAFE';
 
   return (
     <div>
       
       {/* 5-Stage Animated Adaptive Purification Pipeline */}
-      <PurificationPipeline reading={reading} lang={lang} />
+      <PurificationPipeline reading={reading} />
 
       {/* Schematic Hardware Specs & Flow Indicators */}
       <div style={{

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Table, Download, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getExportCsvUrl } from '../api/client';
-import { i18n } from '../i18n';
 
-export default function HistoryTable({ history, deviceId, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function HistoryTable({ history, deviceId }) {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(0);
   const pageSize = 10;
@@ -42,10 +42,10 @@ export default function HistoryTable({ history, deviceId, lang }) {
           </div>
           <div>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF' }}>
-              {t.historyTitle}
+              {t('historyTitle')}
             </h3>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              {t.historySub}
+              {t('historySub')}
             </p>
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function HistoryTable({ history, deviceId, lang }) {
             }}
           >
             <Download size={16} />
-            <span>{t.exportCsv}</span>
+            <span>{t('exportCsv')}</span>
           </a>
         </div>
       </div>

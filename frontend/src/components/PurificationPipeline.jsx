@@ -1,9 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Waves, Filter, Cpu, Zap, CheckCircle, ShieldOff } from 'lucide-react';
-import { i18n } from '../i18n';
 
-export default function PurificationPipeline({ reading, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function PurificationPipeline({ reading }) {
+  const { t } = useTranslation();
   const status = reading?.status || 'SAFE';
   const pipeline = reading?.pipeline_stages || {
     intake: 'completed',
@@ -16,35 +16,35 @@ export default function PurificationPipeline({ reading, lang }) {
   const stages = [
     {
       key: 'intake',
-      label: t.stageIntake,
+      label: t('stageIntake'),
       icon: <Waves size={20} />,
       status: pipeline.intake,
       detail: "Continuous Raw Stream Intake"
     },
     {
       key: 'filtration',
-      label: t.stageFiltration,
+      label: t('stageFiltration'),
       icon: <Filter size={20} />,
       status: pipeline.filtration,
       detail: pipeline.filtration === 'bypassed' ? "Bypassed (Water Safe)" : "Active Carbon Pass"
     },
     {
       key: 'sensor_check',
-      label: t.stageSensor,
+      label: t('stageSensor'),
       icon: <Cpu size={20} />,
       status: pipeline.sensor_check,
       detail: `BIS Evaluated (${reading?.ph ? reading.ph.toFixed(1) : 7.0} pH)`
     },
     {
       key: 'uvc_disinfection',
-      label: t.stageUvc,
+      label: t('stageUvc'),
       icon: <Zap size={20} />,
       status: pipeline.uvc_disinfection,
       detail: pipeline.uvc_disinfection === 'active' ? "254nm High UV Dosage Active" : (pipeline.uvc_disinfection === 'standby' ? "Low Power Standby" : "Skipped (Energy Saved)")
     },
     {
       key: 'output',
-      label: t.stageOutput,
+      label: t('stageOutput'),
       icon: <CheckCircle size={20} />,
       status: pipeline.output,
       detail: "Clean Community Supply"
@@ -58,10 +58,10 @@ export default function PurificationPipeline({ reading, lang }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
           <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FFFFFF' }}>
-            {t.pipelineTitle}
+            {t('pipelineTitle')}
           </h3>
           <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-            {t.pipelineSub}
+            {t('pipelineSub')}
           </p>
         </div>
 
@@ -108,7 +108,7 @@ export default function PurificationPipeline({ reading, lang }) {
         gap: '12px',
         position: 'relative'
       }}>
-        {stages.map((stage, idx) => {
+        {stages.map((stage) => {
           let stageBg = 'rgba(255, 255, 255, 0.03)';
           let stageBorder = 'rgba(255, 255, 255, 0.08)';
           let iconColor = 'var(--text-dim)';
@@ -175,7 +175,6 @@ export default function PurificationPipeline({ reading, lang }) {
                 </div>
               </div>
 
-              {/* Step indicator dot */}
               <div style={{
                 height: '4px',
                 width: '100%',

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sliders, Send, AlertOctagon, RefreshCw, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { pushManualOverride } from '../api/client';
-import { i18n } from '../i18n';
 
-export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function DemoControlPanel({ deviceId, onManualPush }) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(true);
 
   const [ph, setPh] = useState(7.2);
@@ -46,7 +46,7 @@ export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
       boxShadow: '0 0 25px rgba(0, 210, 255, 0.15)'
     }}>
       
-      {/* Header bar / Toggle button */}
+      {/* Header bar */}
       <div
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -63,13 +63,13 @@ export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
           <Sliders size={20} color="#00D2FF" />
           <div>
             <div style={{ fontSize: '1rem', fontWeight: 800, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>{t.demoPanelTitle}</span>
+              <span>{t('demoPanelTitle')}</span>
               <span className="badge-tag" style={{ background: 'rgba(245, 158, 11, 0.2)', color: '#FBBF24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
                 Live Demo Mode
               </span>
             </div>
             <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-              {t.demoPanelSub}
+              {t('demoPanelSub')}
             </div>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
                 }}
               >
                 <AlertOctagon size={14} />
-                <span>{t.simAmd}</span>
+                <span>{t('simAmd')}</span>
               </button>
 
               <button
@@ -123,7 +123,7 @@ export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
                   cursor: 'pointer'
                 }}
               >
-                {t.simTurb}
+                {t('simTurb')}
               </button>
 
               <button
@@ -139,7 +139,7 @@ export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
                   cursor: 'pointer'
                 }}
               >
-                {t.simFluoride}
+                {t('simFluoride')}
               </button>
 
               <button
@@ -159,12 +159,12 @@ export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
                 }}
               >
                 <RefreshCw size={14} />
-                <span>{t.resetSim}</span>
+                <span>{t('resetSim')}</span>
               </button>
             </div>
           </div>
 
-          {/* Interactive Sliders Grid */}
+          {/* Sliders Grid */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -265,7 +265,7 @@ export default function DemoControlPanel({ deviceId, onManualPush, lang }) {
             }}
           >
             <Send size={18} />
-            <span>{isPushing ? 'Injecting Telemetry...' : t.pushManual}</span>
+            <span>{isPushing ? 'Injecting Telemetry...' : t('pushManual')}</span>
           </button>
 
         </div>

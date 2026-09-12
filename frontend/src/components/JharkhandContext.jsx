@@ -1,10 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { MapPin, Database } from 'lucide-react';
-import { i18n } from '../i18n';
 
-export default function JharkhandContext({ lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function JharkhandContext() {
+  const { t } = useTranslation();
 
   const data = [
     { name: 'Iron & Manganese', value: 35, color: '#FBBF24' },
@@ -41,10 +41,10 @@ export default function JharkhandContext({ lang }) {
           </div>
           <div>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF' }}>
-              {t.jharkhandTitle}
+              {t('jharkhandTitle')}
             </h3>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              {t.jharkhandSub}
+              {t('jharkhandSub')}
             </p>
           </div>
         </div>
@@ -117,7 +117,6 @@ export default function JharkhandContext({ lang }) {
         {/* Legend & District Grid */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           
-          {/* Legend Items */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
             {data.map((item) => (
               <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
@@ -127,7 +126,6 @@ export default function JharkhandContext({ lang }) {
             ))}
           </div>
 
-          {/* District Highlights */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
             {districts.map((d) => (
               <div key={d.name} style={{

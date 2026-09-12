@@ -1,10 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import JharkhandContext from '../components/JharkhandContext';
-import { MapPin, ShieldAlert, Database, Layers } from 'lucide-react';
-import { i18n } from '../i18n';
+import { Layers } from 'lucide-react';
 
-export default function JharkhandGISMapPage({ lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function JharkhandGISMapPage() {
+  const { t } = useTranslation();
 
   const gisNodes = [
     {
@@ -53,7 +53,7 @@ export default function JharkhandGISMapPage({ lang }) {
     <div>
       
       {/* Contamination Distribution Donut Chart & District Overview */}
-      <JharkhandContext lang={lang} />
+      <JharkhandContext />
 
       {/* GIS Regional Field Node Monitoring Cards */}
       <div className="glass-panel" style={{ padding: '24px' }}>

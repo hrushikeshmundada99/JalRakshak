@@ -1,9 +1,9 @@
 import React from 'react';
-import { Brain, Cpu, AlertTriangle, ShieldCheck, Wrench } from 'lucide-react';
-import { i18n } from '../i18n';
+import { useTranslation } from 'react-i18next';
+import { Brain, Wrench } from 'lucide-react';
 
-export default function MLRiskCard({ reading, lang }) {
-  const t = i18n[lang] || i18n.en;
+export default function MLRiskCard({ reading }) {
+  const { t } = useTranslation();
   
   const riskLabel = reading?.risk_label || 'SAFE';
   const confidence = reading?.risk_confidence || 98.5;
@@ -41,10 +41,10 @@ export default function MLRiskCard({ reading, lang }) {
             </div>
             <div>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#FFFFFF' }}>
-                {t.mlTitle}
+                {t('mlTitle')}
               </h3>
               <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {t.mlSub}
+                {t('mlSub')}
               </p>
             </div>
           </div>
@@ -72,10 +72,10 @@ export default function MLRiskCard({ reading, lang }) {
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-              {t.mlRiskClass}
+              {t('mlRiskClass')}
             </span>
             <span style={{ fontSize: '0.8rem', fontWeight: 800, color: badge.color }}>
-              {confidence.toFixed(1)}% {t.mlConfidence}
+              {confidence.toFixed(1)}% {t('mlConfidence')}
             </span>
           </div>
 
@@ -83,7 +83,6 @@ export default function MLRiskCard({ reading, lang }) {
             {badge.title}
           </div>
 
-          {/* Confidence bar */}
           <div style={{ height: '6px', width: '100%', background: 'rgba(0, 0, 0, 0.3)', borderRadius: '3px', overflow: 'hidden' }}>
             <div style={{ height: '100%', width: `${confidence}%`, background: badge.color, borderRadius: '3px', transition: 'width 0.5s ease' }} />
           </div>
@@ -92,7 +91,7 @@ export default function MLRiskCard({ reading, lang }) {
         {/* Groundwater Explanation */}
         <div style={{ marginBottom: '14px' }}>
           <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '4px' }}>
-            {t.mlExplanation}:
+            {t('mlExplanation')}:
           </div>
           <p style={{ fontSize: '0.88rem', color: 'var(--text-main)', lineHeight: '1.45' }}>
             {explanation}
@@ -114,7 +113,7 @@ export default function MLRiskCard({ reading, lang }) {
         <Wrench size={18} color="#00D2FF" style={{ flexShrink: 0, marginTop: '2px' }} />
         <div>
           <div style={{ fontSize: '0.76rem', fontWeight: 700, color: '#00D2FF' }}>
-            {t.mlAction}:
+            {t('mlAction')}:
           </div>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '2px' }}>
             {action}

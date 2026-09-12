@@ -9,7 +9,6 @@ export default function TelemetryDashboardPage({
   history,
   alerts,
   deviceId,
-  lang,
   onManualPush
 }) {
   return (
@@ -19,13 +18,11 @@ export default function TelemetryDashboardPage({
       <LiveStatusHero
         reading={currentReading}
         history={history}
-        lang={lang}
       />
 
       {/* Demo Control Panel (Collapsible Drawer) */}
       <DemoControlPanel
         deviceId={deviceId}
-        lang={lang}
         onManualPush={onManualPush}
       />
 
@@ -36,8 +33,8 @@ export default function TelemetryDashboardPage({
         gap: '24px',
         marginBottom: '24px'
       }}>
-        <MLRiskCard reading={currentReading} lang={lang} />
-        <AlertLog alerts={alerts} lang={lang} />
+        <MLRiskCard reading={currentReading} />
+        <AlertLog alerts={alerts} />
       </div>
 
     </div>
